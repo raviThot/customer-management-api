@@ -1,0 +1,138 @@
+openapi: 3.0.0
+info:
+  title: Customer Management API
+  version: 1.0.0
+
+paths:
+  /api/v1/customers:
+    post:
+      summary: Create a new customer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerRequest'
+      responses:
+        '201':
+          description: Customer created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerResponse'
+        '400':
+          description: Invalid request (e.g., name or email missing or malformed)
+    get:
+      summary: Retrieve a customer by name or email
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+        - in: query
+          name: email
+          schema:
+            type: string
+            format: email
+      responses:
+        '200':
+          description: Customer retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerResponse'
+        '404':
+          description: Customer not found
+
+  /api/v1/customers/{id}:
+    get:
+      summary: Retrieve a customer by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Customer retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerResponse'
+        '404':
+          description: Customer not found
+    put:
+      summary: Update an existing customer
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerRequest'
+      responses:
+        '200':
+          description: Customer updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerResponse'
+        '404':
+          description: Customer not found
+    delete:
+      summary: Delete a customer by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Customer deleted successfully
+        '404':
+          description: Customer not found
+
+components:
+  schemas:
+    CustomerRequest:
+      type: object
+      required:
+        - name
+        - email
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        annualSpend:
+          type: number
+          format: double
+        lastPurchaseDate:
+          type: string
+          format: date-time
+
+    CustomerResponse:
+      allOf:
+        - $ref: '#/components/schemas/CustomerRequest'
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            tier:
+              type: string
+              enum:
+                - Silver
+                - Gold
+                - Platinum
