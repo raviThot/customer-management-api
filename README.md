@@ -56,8 +56,8 @@ POST /api/v1/customers
 Content-Type: application/json
 
 {
-  "name": "Alice",
-  "email": "alice@example.com",
+  "name": "Suryaraviteja",
+  "email": "SuryaravitejaThota@example.com",
   "annualSpend": 15000,
   "lastPurchaseDate": "2024-12-01T00:00:00"
 }
@@ -76,7 +76,7 @@ GET /api/v1/customers/{id}
 ### 3. 🔍 Get Customer by Name
 
 ```
-GET /api/v1/customers?name=Alice
+GET /api/v1/customers?name=Suryaraviteja
 ```
 
 ---
@@ -84,7 +84,7 @@ GET /api/v1/customers?name=Alice
 ### 4. 🔍 Get Customer by Email
 
 ```
-GET /api/v1/customers?email=alice@example.com
+GET /api/v1/customers?email=SuryaravitejaThota@example.com
 ```
 
 ---
@@ -96,8 +96,8 @@ PUT /api/v1/customers/{id}
 Content-Type: application/json
 
 {
-  "name": "Alice Updated",
-  "email": "alice.updated@example.com",
+  "name": "SuryaravitejaThota Updated",
+  "email": "SuryaravitejaThota.updated@example.com",
   "annualSpend": 8000,
   "lastPurchaseDate": "2025-01-01T00:00:00"
 }
